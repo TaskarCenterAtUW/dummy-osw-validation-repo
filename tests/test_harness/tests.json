@@ -1,0 +1,14 @@
+{
+  "Tests": [
+    {
+      "Name": "TC1: OSW Failure test case",
+      "Input_file": "test_files/osw_test_case1.json",
+      "Result": false
+    },
+    {
+      "Name": "TC2: OSW Valid test case",
+      "Input_file": "test_files/osw_test_case2.json",
+      "Result": true
+    }
+  ]
+}
