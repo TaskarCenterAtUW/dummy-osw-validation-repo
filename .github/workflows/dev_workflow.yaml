@@ -33,11 +33,7 @@ jobs:
     environment: Development
     runs-on: ubuntu-latest
     if: github.event_name == 'workflow_dispatch' || github.event.pull_request.merged == true
-    outputs:
-      image: ${{ steps.image.outputs.image }}
     steps:
-      - id: image
-        run: echo "image=${{ secrets.REGISTRY_DOMAIN }}/${{ secrets.REGISTRY_REPO }}:${{ github.sha }}" >> "$GITHUB_OUTPUT"
       - uses: actions/checkout@v4
       - uses: azure/docker-login@v1
         with:
@@ -67,7 +63,7 @@ jobs:
         run: |
           echo "function_app_name=${{ vars.FUNCTION_APP_NAME }}" >> "$GITHUB_OUTPUT"
           echo "resource_group=${{ vars.RESOURCE_GROUP }}" >> "$GITHUB_OUTPUT"
-          echo "aci_image=${{ needs.Build.outputs.image }}" >> "$GITHUB_OUTPUT"
+          echo "aci_image=${{ secrets.REGISTRY_DOMAIN }}/${{ secrets.REGISTRY_REPO }}:${{ github.sha }}" >> "$GITHUB_OUTPUT"
           echo "restart_app=${{ vars.RESTART_APP || 'true' }}" >> "$GITHUB_OUTPUT"
 
       - name: Log target environment
